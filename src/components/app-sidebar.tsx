@@ -104,21 +104,37 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "State",
       url: "#",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Handlers",
+          url: "/handlers",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "useState",
+          url: "/useState",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "React Loop",
+          url: "/loop",
+        },
+        {
+          title: "Render",
+          url: "/render",
+        },
+        {
+          title: "Binding",
+          url: "/binding",
+        },
+        {
+          title: "Props vs. State",
+          url: "/propsState",
+        },
+        {
+          title: "Forms",
+          url: "/forms",
         },
       ],
     },
