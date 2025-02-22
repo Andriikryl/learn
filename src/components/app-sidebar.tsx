@@ -58,6 +58,14 @@ const data = {
       isActive: true,
       items: [
         {
+          title: " Imperative vs Declarative Programming",
+          url: "/typesProgram",
+        },
+        {
+          title: "Pure Functions",
+          url: "/pureFunction",
+        },
+        {
           title: "Hello World",
           url: "/hello",
         },
@@ -139,21 +147,25 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Hooks",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Rules of Hooks",
+          url: "/rulesHooks",
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: "useId",
+          url: "/useId",
         },
         {
-          title: "Tutorials",
-          url: "#",
+          title: "Refs",
+          url: "/refs",
+        },
+        {
+          title: "Effects",
+          url: "/effects",
         },
         {
           title: "Changelog",
