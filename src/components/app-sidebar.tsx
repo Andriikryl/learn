@@ -35,7 +35,7 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Learning team",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
@@ -62,12 +62,44 @@ const data = {
           url: "/hello",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "Build react",
+          url: "/build",
         },
         {
-          title: "Settings",
-          url: "#",
+          title: "Jsx",
+          url: "/jsx",
+        },
+        {
+          title: "Syntax",
+          url: "/syntax",
+        },
+        {
+          title: "Props",
+          url: "/props",
+        },
+        {
+          title: "Fragments",
+          url: "/fragments",
+        },
+        {
+          title: "Mapping",
+          url: "/mapping",
+        },
+        {
+          title: "Keys",
+          url: "/keys",
+        },
+        {
+          title: "Conditional",
+          url: "/conditional",
+        },
+        {
+          title: "&& Operator",
+          url: "/logicalAnd",
+        },
+        {
+          title: "Ternary Operator",
+          url: "/ternary",
         },
       ],
     },
@@ -166,9 +198,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )
