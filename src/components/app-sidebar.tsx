@@ -82,6 +82,10 @@ const data = {
           url: "/syntax",
         },
         {
+          title: "Components",
+          url: "/comp",
+        },
+        {
           title: "Props",
           url: "/props",
         },

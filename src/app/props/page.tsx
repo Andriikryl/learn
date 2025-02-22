@@ -85,6 +85,110 @@ export default function Props() {
     </button>
   );
 }`;
+const functionAnalogy = `
+// Function composition analogy
+function getProfilePic(username) {
+  return "https://photo.fb.com/" + username
+}
+
+function getProfileLink(username) {
+  return "https://www.fb.com/" + username
+}
+
+function getAvatarInfo(username) {
+  return {
+    pic: getProfilePic(username),
+    link: getProfileLink(username),
+  }
+}
+
+getAvatarInfo("tylermcginnis")`;
+
+  const basicPropsExample = `
+// Passing and accessing props
+function Hello(props) {
+  return <h1>Hello, {props.name}</h1>
+}
+
+export default function App() {
+  return <Hello name='Tyler' />
+}`;
+
+  const multiplePropsExample = `
+// Multiple props with destructuring
+function Hello({ first, last }) {
+  return <h1>Hello, {first} {last}</h1>
+}
+
+export default function App() {
+  return <Hello first="Tyler" last="McGinnis" />
+}`;
+
+  const complexPropsExample = `
+// Various prop types
+<Profile
+  username="tylermcginnis"
+  authed={true}
+  logout={handleLogout}
+  header={<h1>👋</h1>}
+  settings={{
+    theme: "dark",
+    notifications: true
+  }}
+/>`;
+
+  const childrenPropExample = `
+// Using props.children
+function Header(props) {
+  return <h1 className="header">{props.children}</h1>
+}
+
+function Layout(props) {
+  return (
+    <div className="layout">
+      <Sidebar />
+      {props.children}
+      <Footer />
+    </div>
+  )
+}
+
+// Usage
+<Layout>
+  <h1>Main Content</h1>
+  <p>This is the page body</p>
+</Layout>`;
+
+  const modalExample = `
+// Modal component implementation
+// Modal.jsx
+export default function Modal({ children, onClose }) {
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button className="close-btn" onClick={onClose}>×</button>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+// App.jsx
+export default function App() {
+  const [isOpen, setIsOpen] = React.useState(false)
+  
+  return (
+    <main>
+      <button onClick={() => setIsOpen(true)}>Open Modal</button>
+      {isOpen && (
+        <Modal onClose={() => setIsOpen(false)}>
+          <h1>Custom Modal Content</h1>
+          <p>This content is passed via children prop</p>
+        </Modal>
+      )}
+    </main>
+  )
+}`;
   return (
     <div className="flex flex-col gap-3">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-[20px]">
@@ -169,14 +273,14 @@ export default function Props() {
           theme="vitesse-dark"
         />
       </div>
-      <p>
+      
         {" "}
         <p>
           This works… but it feels a bit funny, doesn't it? It's quite different
           from how we use a typical HTML button, where the content goes
           in-between the open and close tags:
         </p>
-      </p>
+      
       <div className="mb-[20px]">
         <CodeHighlighter
           code={childPorpsEx}
@@ -190,6 +294,100 @@ export default function Props() {
         that children is somehow distinct or different from other props. In
         fact, it's exactly the same.
       </p>
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Props: Component Interface</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={functionAnalogy} lang="javascript" theme="vitesse-dark" />
+          <div className="p-4 bg-blue-50 rounded-lg mt-4">
+            <p>Props are to components what arguments are to functions</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Passing Props</h2>
+        <div className="grid grid-cols-2 gap-4 mb-[20px]">
+          <div>
+            <CodeHighlighter code={basicPropsExample} lang="javascript" theme="vitesse-dark" />
+          </div>
+          <div>
+            <CodeHighlighter code={complexPropsExample} lang="javascript" theme="vitesse-dark" />
+            <div className="p-4 bg-yellow-50 rounded-lg mt-4">
+              <h3 className="font-bold mb-2">💡 Prop Rules</h3>
+              <ul className="list-disc pl-6">
+                <li>Strings: <code>name="value"</code></li>
+                <li>Other types: <code>number={42}</code></li>
+                <li>Boolean shorthand: <code>authed</code> vs <code>authed={true}</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Accessing Props</h2>
+        <div className="grid grid-cols-2 gap-4 mb-[20px]">
+          <div>
+            <CodeHighlighter code={multiplePropsExample} lang="javascript" theme="vitesse-dark" />
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">Destructuring Pattern</h3>
+            <CodeHighlighter 
+              code={`function Hello({ first, last }) {\n  return <h1>Hello, {first} {last}</h1>\n}`} 
+              lang="javascript" 
+              theme="vitesse-dark" 
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Children Prop</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={childrenPropExample} lang="javascript" theme="vitesse-dark" />
+          <div className="p-4 bg-purple-50 rounded-lg mt-4">
+            <p>Children allow component composition similar to HTML elements:</p>
+            <CodeHighlighter 
+              code={`<div>\n  <h1>Child content</h1>\n</div>`} 
+              lang="html" 
+              theme="vitesse-dark" 
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Practical Example: Modal</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={modalExample} lang="javascript" theme="vitesse-dark" />
+          <div className="p-4 bg-red-50 rounded-lg mt-4">
+            <h3 className="font-bold mb-2">Component Structure</h3>
+            <ul className="list-disc pl-6">
+              <li>Modal handles overlay and closing logic</li>
+              <li>Parent controls open/close state</li>
+              <li>Content fully customizable via children</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Key Takeaways</h2>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="p-4 bg-blue-100 rounded-lg">
+            <h3 className="font-bold mb-2">Composition</h3>
+            <p>Props enable component reuse and composition</p>
+          </div>
+          <div className="p-4 bg-green-100 rounded-lg">
+            <h3 className="font-bold mb-2">Type Flexibility</h3>
+            <p>Props can be any JS value: strings, numbers, objects, even components</p>
+          </div>
+          <div className="p-4 bg-purple-100 rounded-lg">
+            <h3 className="font-bold mb-2">Children Pattern</h3>
+            <p>Special children prop enables HTML-like content nesting</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
