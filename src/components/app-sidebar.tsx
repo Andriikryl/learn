@@ -11,6 +11,7 @@ import {
   Map,
   PieChart,
   Settings2,
+  Dices,
   SquareTerminal,
 } from "lucide-react"
 
@@ -27,28 +28,6 @@ import {
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Learning team",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
       title: "Fundamentals",
@@ -193,25 +172,24 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "TypeScript",
       url: "#",
       icon: Settings2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "Types -> Sets",
+          url: "/sets",
         },
+      ],
+    },
+    {
+      title: "JavaScript",
+      url: "#",
+      icon: Dices,
+      items: [
         {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Equal",
+          url: "/equal",
         },
       ],
     },
