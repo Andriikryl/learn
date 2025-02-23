@@ -186,6 +186,10 @@ const data = {
           title: "Fetching data",
           url: "/fetching",
         },
+        {
+          title: "Memoization",
+          url: "/memoization",
+        },
       ],
     },
     {

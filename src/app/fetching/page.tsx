@@ -107,6 +107,46 @@ function App() {
   }
 }`;
 
+const problematicCode = `
+// ❌ Problematic implementation
+React.useEffect(async () => {
+  const data = await fetchData();
+  setState(data);
+}, []);`;
+
+  const solutionCode = `
+// ✅ Correct implementation
+React.useEffect(() => {
+  async function loadData() {
+    const data = await fetchData();
+    setState(data);
+  }
+  
+  loadData();
+}, []);`;
+
+  const cleanupExample = `
+React.useEffect(() => {
+  const controller = new AbortController();
+
+  async function fetchData() {
+    try {
+      const res = await fetch(url, {
+        signal: controller.signal
+      });
+      setData(await res.json());
+    } catch (error) {
+      if (!controller.signal.aborted) {
+        setError(error);
+      }
+    }
+  }
+
+  fetchData();
+
+  return () => controller.abort();
+}, [url]);`;
+
 
   return (
     <>  
@@ -374,6 +414,129 @@ function App() {
             <li>Automatic retry on error</li>
             <li>Window focus revalidation</li>
             <li>Deduped simultaneous requests</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <div className="flex flex-col gap-3">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-[20px]">
+        Async Effects in React
+      </h1>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Common Pitfall</h2>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <CodeHighlighter 
+              code={problematicCode} 
+              lang="javascript" 
+              theme="vitesse-dark" 
+            />
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h3 className="font-bold mb-2">Why This Fails</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Async functions return promises</li>
+              <li>React expects cleanup functions</li>
+              <li>Potential race conditions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Proper Implementation</h2>
+        <div className="grid grid-cols-2 gap-4 mb-[20px]">
+          <div>
+            <CodeHighlighter 
+              code={solutionCode} 
+              lang="javascript" 
+              theme="vitesse-dark" 
+            />
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">Key Features</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Separate async function inside effect</li>
+              <li>Immediate invocation</li>
+              <li>Proper cleanup handling</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Cleanup & Abort Control</h2>
+        <CodeHighlighter 
+          code={cleanupExample} 
+          lang="javascript" 
+          theme="vitesse-dark" 
+        />
+        <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+          <p className="font-semibold">Best practices:</p>
+          <ul className="list-disc pl-6 space-y-2 mt-2">
+            <li>Use AbortController for fetch cancellation</li>
+            <li>Handle component unmount scenarios</li>
+            <li>Clean up timers/subscriptions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Dependency Management</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="p-4 bg-yellow-50 rounded-lg">
+            <h3 className="font-bold mb-2">Empty Dependency Array</h3>
+            <CodeHighlighter 
+              code="useEffect(() => {/* ... */}, [])" 
+              lang="javascript" 
+              theme="vitesse-dark" 
+            />
+            <p className="mt-2 text-sm">
+              Runs once on mount - use cautiously
+            </p>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg">
+            <h3 className="font-bold mb-2">Dynamic Dependencies</h3>
+            <CodeHighlighter 
+              code="useEffect(() => {/* ... */}, [id, page])" 
+              lang="javascript" 
+              theme="vitesse-dark" 
+            />
+            <p className="mt-2 text-sm">
+              Re-runs when dependencies change
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Best Practices</h2>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="p-4 bg-green-100 rounded-lg">
+            <h3 className="font-bold mb-2">Use Libraries</h3>
+            <p>SWR/React Query for data fetching</p>
+          </div>
+          <div className="p-4 bg-blue-100 rounded-lg">
+            <h3 className="font-bold mb-2">Error Boundaries</h3>
+            <p>Handle component-level errors</p>
+          </div>
+          <div className="p-4 bg-purple-100 rounded-lg">
+            <h3 className="font-bold mb-2">Loading States</h3>
+            <p>Always show loading indicators</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Why Async Effects Fail</h2>
+        <div className="p-4 bg-red-50 rounded-lg">
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Effects must return cleanup function or nothing</li>
+            <li>Async functions return Promises</li>
+            <li>React can't handle Promise cleanup</li>
+            <li>Potential memory leaks</li>
           </ul>
         </div>
       </section>
