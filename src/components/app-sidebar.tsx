@@ -16,8 +16,7 @@ import {
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+
 import {
   Sidebar,
   SidebarContent,
@@ -172,8 +171,20 @@ const data = {
           url: "/effects",
         },
         {
-          title: "Changelog",
-          url: "#",
+          title: "Cleanup",
+          url: "/cleanup",
+        },
+        {
+          title: "Strict Mode",
+          url: "/strictMode",
+        },
+        {
+          title: "Custom Hooks",
+          url: "/customHooks",
+        },
+        {
+          title: "Fetching data",
+          url: "/fetching",
         },
       ],
     },
@@ -222,11 +233,8 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
-      <SidebarContent>
+    <Sidebar collapsible="icon" {...props} className=" bg-white">
+      <SidebarContent className=" bg-white">
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
