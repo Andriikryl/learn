@@ -62,7 +62,7 @@ const data = {
     {
       title: "JavaScript",
       url: "#",
-      items: [{ title: "Equal", url: "/equal" }],
+      items: [{ title: "Equal", url: "/equal" }, { title: "Function Composition", url: "/functionComposition"}],
     },
   ],
 };

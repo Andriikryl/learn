@@ -191,6 +191,14 @@ const data = {
           title: "Equal",
           url: "/equal",
         },
+        {
+          title: "Function Composition",
+          url: "/functionComposition",
+        },
+        {
+          title: "Reduce",
+          url: "/reduce",
+        },
       ],
     },
   ],
