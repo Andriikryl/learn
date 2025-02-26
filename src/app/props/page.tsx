@@ -190,6 +190,7 @@ export default function App() {
   )
 }`;
   return (
+    <>
     <div className="flex flex-col gap-3">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-[20px]">
         Props
@@ -389,5 +390,259 @@ export default function App() {
         </div>
       </section>
     </div>
+    <div className="flex flex-col gap-6">
+      {/* Header */}
+      <div>
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          Prop Delegation
+        </h1>
+        <p className="text-sm text-gray-600">
+          Learn how to forward props easily using rest parameters and spread syntax.
+        </p>
+      </div>
+
+      {/* Forwarding Props – The Basic Idea */}
+      <section>
+        <p>
+          In the Banner example from the Spectrum of Components lesson, our{" "}
+          <code>LoggedInBanner</code> had to “forward” some props:
+        </p>
+        <CodeHighlighter
+          code={`function LoggedInBanner({
+  user,
+  // These two props:
+  type,
+  children,
+}) {
+  if (!user || user.registrationStatus === 'unverified') {
+    return null;
+  }
+
+  // ...are forwarded along to Banner:
+  return <Banner type={type}>{children}</Banner>;
+}`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+      </section>
+
+      {/* Using Rest Parameters for Delegation */}
+      <section>
+        <p>
+          What if this component had 10 forwarded props instead of 2? React makes it simple by using rest parameters
+          and the spread syntax.
+        </p>
+        <CodeHighlighter
+          code={`function LoggedInBanner({
+  user,
+  // Collect all unspecified props:
+  ...delegated
+}) {
+  if (!user || user.registrationStatus === 'unverified') {
+    return null;
+  }
+
+  // And pass them onto Banner:
+  return <Banner {...delegated} />;
+}`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          Some folks prefer to name the rest parameter <code>rest</code>:
+        </p>
+        <CodeHighlighter
+          code={`function LoggedInBanner({
+  user,
+  ...rest
+}) {
+  if (!user || user.registrationStatus === 'unverified') {
+    return null;
+  }
+
+  return <Banner {...rest} />;
+}`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          For consistency, we'll use <code>delegated</code> throughout.
+          If you were to log <code>delegated</code> to the console, you’d see:
+        </p>
+        <CodeHighlighter
+          code={`console.log(delegated);
+/*
+  {
+    type: 'success',
+    children: 'Account registered!',
+  }
+*/`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+      </section>
+
+      {/* How Spread Syntax Works */}
+      <section>
+        <p>
+          To apply these props to our <code>Banner</code> element, we use spread syntax:
+        </p>
+        <CodeHighlighter
+          code={`<Banner {...delegated} />`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          This is equivalent to:
+        </p>
+        <CodeHighlighter
+          code={`<Banner
+  type={delegated.type}
+  children={delegated.children}
+/>`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          And when transpiled to plain JavaScript, it becomes:
+        </p>
+        <CodeHighlighter
+          code={`React.createElement(
+  Banner,
+  {
+    type: delegated.type,
+    ...delegated
+  }
+);`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+      </section>
+
+      {/* Spread Syntax Gotcha */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Spread Syntax Gotcha (Warning)</h2>
+        <p>
+          It's common in JavaScript to use trailing commas, for example:
+        </p>
+        <CodeHighlighter
+          code={`const someObject = {
+  id: 1234,
+  createdAt: '2022/07/01',
+  modifiedAt: '2022/07/02',
+  avatar: '/src/avatar.png', // <-- trailing comma here is fine
+};`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          However, if you try to add a trailing comma after a rest parameter:
+        </p>
+        <CodeHighlighter
+          code={`function Slider({
+  label,
+  ...delegated, // <-- This comma causes an error
+}) {}`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          You'll get an error: "Unexpected trailing comma after rest element." Rest parameters must be the final item.
+        </p>
+      </section>
+
+      {/* Supercharged HTML Tags */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Supercharged HTML Tags</h2>
+        <p>
+          Many React components are simply enhanced wrappers around standard HTML elements.
+          Consider the <code>TextInput</code> component:
+        </p>
+        <CodeHighlighter
+          code={`import React from 'react';
+
+function TextInput({ id, label, ...delegated }) {
+  const generatedId = React.useId();
+  const appliedId = id || generatedId;
+
+  return (
+    <div className="text-input">
+      <label htmlFor={appliedId}>{label}</label>
+      <input id={appliedId} {...delegated} />
+    </div>
+  );
+}
+
+export default TextInput;`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+        <p>
+          From a consumer's perspective, this <code>TextInput</code> behaves like an{" "}
+          <code>&lt;input&gt;</code> element with added features (like automatic ID generation).
+        </p>
+        <p>
+          For example, in a login form:
+        </p>
+        <CodeHighlighter
+          code={`import TextInput from './TextInput';
+
+function LoginForm() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  function handleLogin() {
+    alert(\`Logged in with \${email}\`);
+  }
+
+  return (
+    <form onSubmit={handleLogin}>
+      <TextInput
+        required={true}
+        data-test-id="login-email-field"
+        label="Email"
+        type="email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <TextInput
+        required={true}
+        minLength={12}
+        label="Password"
+        type="password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <button>Submit</button>
+    </form>
+  );
+}
+
+export default LoginForm;`}
+          lang="javascript"
+          theme="vitesse-dark"
+        />
+      </section>
+
+      {/* Prop Delegation and TypeScript */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Prop Delegation and TypeScript</h2>
+        <p>
+          In JavaScript, prop delegation forwards any extra props to an underlying DOM node.
+          In TypeScript, you don’t need to list every possible attribute. Instead, you can
+          leverage the <code>ComponentProps</code> helper. For more details, check out Matt Pocock’s
+          article,{" "}
+          <a
+            className="text-blue-600 underline"
+            href="https://mattpocock.com/componentprops-reacts-most-useful-type-helper"
+            target="_blank"
+            rel="noreferrer"
+          >
+            "ComponentProps: React's Most Useful Type Helper"
+          </a>.
+        </p>
+      </section>
+    </div>
+    </>
   );
 }

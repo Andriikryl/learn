@@ -169,7 +169,22 @@ const data = {
           title: "Memoization",
           url: "/memoization",
         },
+        {
+          title: "UseMemo Hook",
+          url: "/useMemoHook",
+        },
       ],
+    },
+    {
+      title: "V8",
+      url: "#",
+      icon: BookOpen,
+      items: [
+        {
+          title: "Function optimization",
+          url: "/functionOptimization",
+        },
+      ]
     },
     {
       title: "TypeScript",

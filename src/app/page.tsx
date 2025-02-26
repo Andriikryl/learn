@@ -52,6 +52,7 @@ const data = {
         { title: "Custom Hooks", url: "/customHooks" },
         { title: "Fetching data", url: "/fetching" },
         { title: "Memoization", url: "/memoization" },
+        { title: "UseMemo Hook", url: "/useMemoHook" },
       ],
     },
     {
