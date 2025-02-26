@@ -65,7 +65,11 @@ const data = {
     {
       title: "JavaScript",
       url: "#",
-      items: [{ title: "Equal", url: "/equal" }, { title: "Function Composition", url: "/functionComposition"}],
+      items: [
+        { title: "Equal", url: "/equal" }, 
+        { title: "Function Composition", url: "/functionComposition"},
+        { title: "Event Loop", url: "/eventLoop" },
+      ],
     },
   ],
 };
