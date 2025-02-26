@@ -195,7 +195,131 @@ export const createContext = <T>(defaultValue: T) => {
   };
 };`;
 
+const entryPointExample = `
+// React Entry Point
+import ReactDOM from 'react-dom/client';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<div>My React App</div>);`;
+
+  const fiberDefinition = `
+// Fiber Structure
+interface Fiber {
+  tag: WorkTag, // Type of Fiber (e.g., FunctionComponent, ClassComponent).
+  key: null | string, // Unique identifier.
+  type: any, // Component type (function, class, or DOM element).
+  stateNode: any, // Reference to the DOM node.
+  child: Fiber | null, // First child Fiber.
+  sibling: Fiber | null, // Next sibling Fiber.
+  return: Fiber | null, // Parent Fiber.
+  memoizedProps: any, // Current props.
+  pendingProps: any, // New props.
+  memoizedState: any, // Current state.
+  updateQueue: mixed, // Queue of state updates.
+  alternate: Fiber | null, // Alternate Fiber for updates.
+  flags: Flags, // Phase/state flags.
+  lanes: Lanes, // Priority lanes.
+}`;
+
+  const reconciliationExample = `
+// Reconciliation Process
+function reconcileChildren(current, workInProgress, nextChildren, renderLanes) {
+  if (current === null) {
+    workInProgress.child = mountChildFibers(workInProgress, null, nextChildren, renderLanes);
+  } else {
+    workInProgress.child = reconcileChildFibers(workInProgress, current.child, nextChildren, renderLanes);
+  }
+}`;
+
+  const lifecyclePhases = `
+// React Lifecycle Phases
+1. Begin Phase: Determine component type and mount/update status.
+2. Render Phase: Build the Virtual Tree.
+3. Commit Phase: Prepare and apply changes.
+4. Layout Phase: Bind to the real DOM and finalize updates.`;
+
   return (
+    <>
+     <div className="flex flex-col gap-3">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-[20px]">
+        React Internals: Reconciliation, Renderers, Fiber, and Virtual Tree
+      </h1>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Entry Point</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={entryPointExample} lang="javascript" theme="vitesse-dark" />
+          <p className="text-sm text-gray-600 mt-2">
+            The entry point for React applications is the <code>ReactDOM.createRoot</code> method, which initializes the root container and starts the rendering process.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Reconciliation</h2>
+        <div className="mb-[20px]">
+          <p className="mb-4">
+            Reconciliation is the process of comparing the Virtual DOM with the real DOM and applying changes efficiently. React uses a <strong>Fiber</strong> architecture to manage this process.
+          </p>
+          <CodeHighlighter code={reconciliationExample} lang="javascript" theme="vitesse-dark" />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Fiber Architecture</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={fiberDefinition} lang="typescript" theme="vitesse-dark" />
+          <p className="text-sm text-gray-600 mt-2">
+            A <strong>Fiber</strong> is a lightweight object representing a unit of work in React. It contains information about the component, its props, state, and relationships with other Fibers.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Renderers</h2>
+        <div className="mb-[20px]">
+          <p className="mb-4">
+            React uses different renderers for various platforms:
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li><strong>React DOM</strong>: For web applications.</li>
+            <li><strong>React Native</strong>: For mobile applications.</li>
+            <li><strong>React ART</strong>: For vector graphics.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Lifecycle Phases</h2>
+        <div className="mb-[20px]">
+          <CodeHighlighter code={lifecyclePhases} lang="markdown" theme="vitesse-dark" />
+          <p className="text-sm text-gray-600 mt-2">
+            React's lifecycle is divided into four phases: Begin, Render, Commit, and Layout. Each phase handles specific tasks in the rendering process.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Virtual Tree</h2>
+        <div className="mb-[20px]">
+          <p className="mb-4">
+            The <strong>Virtual Tree</strong> is an in-memory representation of the UI. React builds this tree during the Render phase and applies changes to the real DOM during the Commit phase.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-bold mb-4">Summary</h2>
+        <div className="p-4 bg-purple-50 rounded-lg">
+          <ul className="list-disc pl-6 space-y-2">
+            <li>React uses a <strong>Fiber</strong> architecture to manage rendering and updates.</li>
+            <li>The <strong>Reconciliation</strong> process compares the Virtual DOM with the real DOM and applies changes efficiently.</li>
+            <li>React supports multiple renderers for different platforms (e.g., Web, Mobile, ART).</li>
+            <li>The rendering process is divided into four phases: Begin, Render, Commit, and Layout.</li>
+          </ul>
+        </div>
+      </section>
+    </div>    
     <div className="flex flex-col gap-3">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-[20px]">
         Building React From Scratch
@@ -307,5 +431,6 @@ export const createContext = <T>(defaultValue: T) => {
         </ul>
       </section>
     </div>
+    </>
   );
 }

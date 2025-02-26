@@ -26,6 +26,7 @@ const data = {
         { title: "Ternary Operator", url: "/ternary" },
         { title: "Rendering", url: "/rendering" },
         { title: "Hydration", url: "/hydration" },
+        { title: "Server Components", url: "/serverComponents" },
       ],
     },
     {
@@ -69,6 +70,13 @@ const data = {
         { title: "Equal", url: "/equal" }, 
         { title: "Function Composition", url: "/functionComposition"},
         { title: "Event Loop", url: "/eventLoop" },
+      ],
+    },
+    {
+      title: "Patterns",
+      url: "#",
+      items: [
+        { title: "Command Pattern", url: "/command" }, 
       ],
     },
   ],
