@@ -24,6 +24,8 @@ const data = {
         { title: "Conditional", url: "/conditional" },
         { title: "&& Operator", url: "/logicalAnd" },
         { title: "Ternary Operator", url: "/ternary" },
+        { title: "Rendering", url: "/rendering" },
+        { title: "Hydration", url: "/hydration" },
       ],
     },
     {
