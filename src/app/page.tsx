@@ -70,6 +70,8 @@ const data = {
         { title: "Equal", url: "/equal" }, 
         { title: "Function Composition", url: "/functionComposition"},
         { title: "Event Loop", url: "/eventLoop" },
+        { title: "Number", url: "/number" },
+        { title: "Bit Sets", url: "/Bit-Sets" },
       ],
     },
     {
@@ -77,6 +79,20 @@ const data = {
       url: "#",
       items: [
         { title: "Command Pattern", url: "/command" }, 
+      ],
+    },
+    {
+      title: "Collor",
+      url: "#",
+      items: [
+        { title: "HSL and HSV Explained", url: "/HSL-and-HSV-Explained" }, 
+      ],
+    },
+    {
+      title: "Algorithms",
+      url: "#",
+      items: [
+        { title: "Sliding Window", url: "/SlidingWindow" }, 
       ],
     },
   ],

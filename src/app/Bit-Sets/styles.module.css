@@ -1,0 +1,15 @@
+@keyframes highlight {
+    0% {
+      background-color: #f0f0f0;
+    }
+    50% {
+      background-color: #ffcc00;
+    }
+    100% {
+      background-color: #f0f0f0;
+    }
+  }
+  
+  .highlight {
+    animation: highlight 1.5s ease-in-out;
+  }

@@ -47,7 +47,7 @@ const approachComparison = [
   },
 ];
 
-export function ApproachComparisonTable() {
+function ApproachComparisonTable() {
   return (
     <Table>
       <TableHeader>
